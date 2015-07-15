@@ -9,7 +9,7 @@ var ser = function () {
     };
     // 登录
     var http = require("http");
-    me.router.get("/login", function (req, res) {
+    me.router.post("/login", function (req, res) {
         //console.log(req.session);
         var url = me.config.resUrl + "?loginName=" + req.query.loginName + "&password=" + req.query.password;
         if (req.query.appCode != undefined && req.query.appCode != "")
@@ -22,7 +22,7 @@ var ser = function () {
             });
             r.on('end', function () {
                 req.session.user = JSON.parse(body);
-                res.send(body);
+                res.send({success:true});
             });
         });
     });

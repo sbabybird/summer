@@ -9,12 +9,12 @@ Ext.onReady(function () {
 
         region: 'center',
         defaultType: 'textfield',
-        url: '/login',
+        url: '/api/login',
         items: [
             {
                 xtype: 'textfield',
                 fieldLabel: 'UserID',
-                name: 'user',
+                name: 'loginName',
                 emptyText: 'user id'
             },
             {
@@ -23,6 +23,12 @@ Ext.onReady(function () {
                 name: 'password',
                 emptyText: 'password',
                 inputType: 'password'
+            },
+            {
+                xtype: 'textfield',
+                fieldLabel: 'APICODE',
+                name: 'appCode',
+                emptyText: 'APPCODE'
             }
         ],
         buttons: [

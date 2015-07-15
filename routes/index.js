@@ -3,14 +3,14 @@ var router = express.Router();
 var http = require('http');
 
 router.checkLogin = function(req, res, next) {
-  if(!req.session.sid) {
+  if(!req.session.user) {
     return res.redirect('/login');
   }
   next();
 };
 
 router.checkNotLogin = function (req, res, next) {
-    if (req.session.sid) {
+    if (req.session.user) {
         return res.redirect('/');
     }
     next();
