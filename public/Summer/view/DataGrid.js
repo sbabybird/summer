@@ -1,5 +1,6 @@
 Ext.define('Summer.view.DataGrid', {
   extend: 'Ext.grid.Panel',
+  controller: Ext.create('Summer.controller.DataGrid'),
   columns: [
     {
       text: '姓名',

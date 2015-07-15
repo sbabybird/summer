@@ -32,10 +32,10 @@ Ext.onReady(function () {
                     var form = this.up('form').getForm();
                     form.submit( {
                         success: function (form, action) {
-                            //Ext.Msg.alert('Success', action.result.message);
+                            window.location = '/';
                         },
                         failure: function (form, action) {
-                            //Ext.Msg.alert('Failed', action.result ? action.result.message : 'No response');
+                            Ext.Msg.alert('Failed', action.result ? action.result.message : 'No response');
                         }
                     });
                 }
