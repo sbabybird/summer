@@ -190,8 +190,8 @@ Ext.define('Summer.view.Grid', {
                 if (a == 'yes') {
 					console.log(me.changeobj);
                     store.remove(me.changeobj); //删除行
-                    $.get('http://localhost/erpos22/php/gridajax.php?action=del&id=' + me.changeobj.data.id + '');
-                    Ext.example.msg('提示', '删除成功');
+                    // $.get('http://localhost/erpos22/php/gridajax.php?action=del&id=' + me.changeobj.data.id + '');
+                    // Ext.example.msg('提示', '删除成功');
                 }
             });
         };
