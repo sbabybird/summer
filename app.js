@@ -28,6 +28,10 @@ app.use(express.static(path.join(__dirname, 'plugin')));
 app.use('/', routes);
 app.use('/users', users);
 
+var server = require('./routes/server');
+server.config.resUrl = "http://fr.hhwy.org/sso/loginformobile";
+app.use('/api', server.router);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -58,6 +62,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

@@ -43,8 +43,8 @@ Ext.define('Summer.view.Grid', {
                 extraParams: {},
                 //参数
                 pageParam: "pageIndex",
-                limitParam: "limit", //pageSize
-                startParam: "start",
+                limitParam: "pageSize", //pageSize
+                startParam: "pageIndex",
                 sortParam: "sortField",
                 directionParam: "sortOrder",
                 timeout: 1200000,

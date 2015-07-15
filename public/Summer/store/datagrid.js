@@ -4,11 +4,17 @@ Ext.define('Summer.store.DataGrid', {
 	autoLoad: true,
 	proxy: {
 		type: 'ajax',
-		url: 'Test/grid.json',
+		url: 'api/hr/employees/address-list',
 		reader: {
-          type: 'json',
-          root: 'data',
-          totalProperty: 'total'
-        }
+			type: 'json',
+			root: 'data',
+			totalProperty: 'total'
+        },
+		pageParam: "pageIndex",
+		limitParam: "pageSize",
+		// startParam: "start",
+		sortParam: "sortField",
+		pageSize :10,
+		directionParam: "sortOrder"
 	}
 })
