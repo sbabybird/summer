@@ -17,7 +17,7 @@ router.checkNotLogin = function (req, res, next) {
 }; 
 
 /* GET home page. */
-//router.get('/', router.checkLogin);
+router.get('/', router.checkLogin);
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Summer!' });
 });
@@ -36,7 +36,8 @@ router.post('/login', function (req, res) {
         r.on('end', function () {
             var parsed = JSON.parse(body);
             req.session.sid = parsed.sessionid;
-            res.redirect('/');
+            res.send({success:true});
+            res.end('');
         });
     });
 });
