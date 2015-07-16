@@ -1,6 +1,8 @@
 {
 	"id": "oa.contact",
+	"type":"",
+	"frCode":"oa.contact",
 	"text": "任务",
 	"icon": "",
-	"url": "Test/grid.js"
+	"url": "addressbook/addressBook.js"
 }

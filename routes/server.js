@@ -51,18 +51,7 @@ var ser = function () {
         return url;
     }
     // http的get
-    me.__httpGet = function (url, callback) {
-        http.get(url, function (r) {
-            var body = '';
-            r.on('data', function (dat) {
-                body += dat;
-            });
-            r.on('end', function () {
-                if (callback instanceof Function)
-                    callback(body);
-            });
-        });
-    }
+    me.__http = require("./httpex");
     // 登录
     me.__login = function (req, res, user, password, appCode, frCode) {
         // 合成网址
@@ -70,12 +59,12 @@ var ser = function () {
         me.log(url);
         
         // 登录到java后端
-        me.__httpGet(url, function (body) {
+        me.__http.get(url, function (body) {
             req.session.user = JSON.parse(body);
             // 获取统一资源的权限
             url = me.__urlWithSession(req.session.user.appInfo.url, "fresource/api/resource", { parentCode: frCode }, req.session.user.sessionid);
             me.log(url);
-            me.__httpGet(url, function (dat) {
+            me.__http.get(url, function (dat) {
                 try {
                     var fr = JSON.parse(dat);
                     req.session.fresource = fr;
@@ -145,7 +134,7 @@ var ser = function () {
         url = me.__urlAddParam(url, req.query);
         me.print(url);
 
-        me.__httpGet(url, function (body) {
+        me.__http.get(url, function (body) {
             res.send(body);
             res.end();
         });
