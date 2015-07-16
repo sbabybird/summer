@@ -27,8 +27,14 @@ Ext.onReady(function () {
             {
                 xtype: 'textfield',
                 fieldLabel: 'APICODE',
-                name: 'appCode',
-                emptyText: 'APPCODE'
+                name: 'appCode'
+                //emptyText: 'APPCODE'
+            },
+            {
+                xtype: 'textfield',
+                fieldLabel: 'FRCODE',
+                name: 'frCode',
+                emptyText: 'webERP'
             }
         ],
         buttons: [

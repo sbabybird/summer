@@ -28,7 +28,7 @@
         width: 200,
         split: true,
         collapsible: true,
-        loadurl: "Test/nav.json",
+        loadurl: "api/nav",
       },
     }
   ],

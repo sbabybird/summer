@@ -30,6 +30,7 @@ app.use('/users', users);
 
 var server = require('./routes/server');
 server.config.resUrl = "http://fr.hhwy.org/sso/loginformobile";
+server.loader.load();
 app.use('/api', server.router);
 
 // catch 404 and forward to error handler
