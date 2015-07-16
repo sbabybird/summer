@@ -7,7 +7,7 @@ Summer = {}; //定义全局变量，承载全局函数
 //! 页面装载完毕后创建布局，将各个板块放入布局
 Ext.onReady(function () {
   Summer.mainLayout = Ext.create('Summer.view.Viewport', {
-    loadUrl: Summer.layoutUrl ? Summer.layoutUrl:'Test/layout/default.json',
+    loadUrl: Summer.layoutUrl ? Summer.layoutUrl:'/layout/default.json',
   });
 });
 
@@ -15,15 +15,3 @@ Ext.onReady(function () {
 Summer.addTabs = function (id, name, url, icon) {
  return Summer.mainLayout.addTabs(id, name, url, icon);
 };
-
-// Ext.application({
-//   name: 'Summer',
-//   appFolder: 'Summer',
-//   autoCreateViewport: false,
-//   controllers: ['DataGrid'],
-//   launch: function() {
-//     Summer.getApplication().mainLayout = Ext.create('Summer.view.Viewport', {
-//       loadUrl: Summer.layoutUrl ? Summer.layoutUrl:'Test/layout/default.json',
-//     });
-//   }
-// })

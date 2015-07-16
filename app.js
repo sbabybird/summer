@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -26,7 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'plugin')));
 
 app.use('/', routes);
-app.use('/users', users);
 
 var server = require('./routes/server');
 server.config.resUrl = "http://fr.hhwy.org/sso/loginformobile";

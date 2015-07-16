@@ -26,20 +26,4 @@ router.get('/login', function (req, res) {
     res.render('login', { title: 'Login' });
 });
 
-router.post('/login', function (req, res) {
-    var loginUrl = 'http://fr.hhwy.org/sso/loginformobile?loginName=' + req.body.user + '&password=' + req.body.password;
-    http.get(loginUrl, function (r) {
-        var body = '';
-        r.on('data', function (d) {
-            body += d;
-        });
-        r.on('end', function () {
-            var parsed = JSON.parse(body);
-            req.session.sid = parsed.sessionid;
-            res.send({success:true});
-            res.end('');
-        });
-    });
-});
-
 module.exports = router;

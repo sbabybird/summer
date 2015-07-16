@@ -143,7 +143,7 @@ var ser = function () {
 
         var url = req.session.user.appInfo.url + "/" + req.path + ";jsessionid=" + req.session.user.sessionid;
         url = me.__urlAddParam(url, req.query);
-        me.print(url);
+        me.log(url);
 
         me.__httpGet(url, function (body) {
             res.send(body);
