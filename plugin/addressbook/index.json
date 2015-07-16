@@ -4,5 +4,5 @@
 	"frCode":"oa.contact",
 	"text": "任务",
 	"icon": "",
-	"url": "addressbook/addressBook.js"
+	"url": "addressbook/addressbook.js"
 }

@@ -1,6 +1,6 @@
 {
   name: "Summer!默认布局",
-  cssUrl: "Test/layout/default.css",
+  cssUrl: "layout/default.css",
   items: [
     {
       stype: "Summer.view.TitleBar",
