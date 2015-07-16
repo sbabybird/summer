@@ -71,25 +71,31 @@ var ser = function () {
         
         // 登录到java后端
         me.__httpGet(url, function (body) {
-            req.session.user = JSON.parse(body);
-            // 获取统一资源的权限
-            url = me.__urlWithSession(req.session.user.appInfo.url, "fresource/api/resource", { parentCode: frCode }, req.session.user.sessionid);
-            me.log(url);
-            me.__httpGet(url, function (dat) {
-                try {
-                    var fr = JSON.parse(dat);
-                    req.session.fresource = fr;
-                    me.log(dat);
-                }
-                catch (e) {
-                    console.log(e);
-                }
-                if (me.config.debug)
-                    res.send({ success: true, data: req.session.user, fresource: req.session.fresource });
-                else
-                    res.send({ success: true, data: req.session.user });
-                res.end();
-            });
+            var bodyObject = JSON.parse(body);
+            if (bodyObject.state && (bodyObject.state == 'error')) {
+                res.send({success: false, message: bodyObject.exceptionMsg});
+            }
+            else {
+                req.session.user = JSON.parse(body);
+                // 获取统一资源的权限
+                url = me.__urlWithSession(req.session.user.appInfo.url, "fresource/api/resource", { parentCode: frCode }, req.session.user.sessionid);
+                me.log(url);
+                me.__httpGet(url, function (dat) {
+                    try {
+                        var fr = JSON.parse(dat);
+                        req.session.fresource = fr;
+                        me.log(dat);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                    if (me.config.debug)
+                        res.send({ success: true, data: req.session.user, fresource: req.session.fresource });
+                    else
+                        res.send({ success: true, data: req.session.user });
+                    res.end();
+                });
+            }
         });
     }
     // 登录对外接口post/get
@@ -114,7 +120,7 @@ var ser = function () {
                 item.text = v.text;
             item.icon = v.icon;
             item.url = v.url;
-            
+
             return false;
         });
         me.log(dat);
