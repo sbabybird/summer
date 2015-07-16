@@ -2,5 +2,5 @@
 	"id": "oa.contact",
 	"text": "任务",
 	"icon": "",
-	"url": "Test/grid.js"
+	"url": "addressbook/addressbook.js"
 }
