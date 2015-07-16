@@ -1,9 +1,9 @@
 Ext.onReady(function () {
     var form = Ext.create('Ext.form.Panel', {
         xtype: 'form-login',
-        title: 'Login',
+        title: '登录',
         frame: true,
-        width: 320,
+        width: '30%',
         bodyPadding: 10,
         layout: 'form',
         region: 'center',
@@ -66,7 +66,7 @@ Ext.onReady(function () {
     });
 
     Ext.create('Ext.Viewport', {
-        layout: 'border',
+        layout: 'center',
         padding: 0,
         items: [
             form
