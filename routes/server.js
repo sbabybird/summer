@@ -59,6 +59,11 @@ module.exports = function (router) {
         // 登录到java后端
         me.__http.get(url, function (body) {
             req.session.user = JSON.parse(body);
+            var u = req.session.user.appInfo.url;
+            if ( u[u.length-1] == "/" ){
+                req.session.user.appInfo.url.length = u.length-1;
+            }
+            console.log(req.session.user.appInfo.url);
             // 获取统一资源的权限
             url = me.__urlWithSession(req.session.user.appInfo.url, "fresource/api/resource", { parentCode: frCode }, req.session.user.sessionid);
             me.log(url);
@@ -128,7 +133,7 @@ module.exports = function (router) {
         if (!me.__loginVerify(req, res))
             return;
 
-        var url = req.session.user.appInfo.url + "/" + req.path + ";jsessionid=" + req.session.user.sessionid;
+        var url = req.session.user.appInfo.url + req.path + ";jsessionid=" + req.session.user.sessionid;
         url = me.__urlAddParam(url, req.query);
         me.log(url);
 
