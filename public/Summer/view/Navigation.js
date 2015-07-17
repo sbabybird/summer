@@ -8,7 +8,8 @@ Ext.define('Summer.view.Navigation', {
   initComponent: function () {
     this.callParent();
     this.getLoader().load({
-      url: this.loadurl
+      url: this.loadurl,
+      loadMask: true
     });
   },
   loader: {
@@ -23,7 +24,6 @@ Ext.define('Summer.view.Navigation', {
             itemclick: function (a, node) {
               var d = node.data;
               if (d.leaf == true) {
-                //console.log(Summer);
                 Summer.addTabs(d.id, d.text, d.url, d.icon);
               }
             }
