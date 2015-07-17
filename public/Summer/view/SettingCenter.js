@@ -8,7 +8,7 @@ Ext.define('Summer.view.SettingCenter', {
 		var syssets = [];
 		Ext.Ajax.request({
 			async: false,
-			url: '/settings',
+			url: '/mainFrame/sysset',
 			success: function (response) {
 				var items = Ext.JSON.decode(response.responseText);
 				Ext.each(items, function (sysSet) {

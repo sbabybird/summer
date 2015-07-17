@@ -1,20 +1,5 @@
 Ext.define('Summer.view.DataGrid', {
   extend: 'Ext.grid.Panel',
-  controller: Ext.create('Summer.controller.DataGrid'),
-  columns: [
-    {
-      text: '姓名',
-      dataIndex: 'userName'
-    },
-    {
-      text: 'sex',
-      dataIndex: 'sex'
-    },
-    {
-      text: 'mobile',
-      dataIndex: 'mobile'
-    }
-  ],
   initComponent: function () {
     var me = this;
     this.initStore(me);
@@ -22,7 +7,21 @@ Ext.define('Summer.view.DataGrid', {
     this.callParent();
   },
   initStore: function (me) {
-    me.store = Ext.create('Summer.store.DataGrid');
+    me.store = Ext.create('Ext.data.Store', {
+      autoLoad: true,
+      remoteSort: true,
+      model: me.sdata.model,
+      proxy: {
+        type: 'ajax',
+        url: me.sdata.dataUrl,
+        reader: {
+          type: 'json',
+          root: 'data',
+          totalProperty: 'total'
+        },
+        simpleSortMode: true
+      },
+    });
   },
   initPagingBar: function (me) {
     me.bbar = Ext.create('Ext.PagingToolbar', {
