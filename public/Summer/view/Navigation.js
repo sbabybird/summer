@@ -24,7 +24,7 @@ Ext.define('Summer.view.Navigation', {
             itemclick: function (a, node) {
               var d = node.data;
               if (d.leaf == true) {
-                Summer.addTabs(d.id, d.text, d.url, d.icon);
+                Summer.addTab(d.id, d.text, d.url, d.icon);
               }
             }
           }

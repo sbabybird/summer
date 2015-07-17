@@ -8,13 +8,13 @@
         "id": "001-01",
         "text": "任务",
         "icon": "",
-        "url": "Test/grid.js"
+        "url": "Test/datagrid.js"
       },
       {
         "id": "001-02",
         "text": "通讯录",
         "icon": "",
-        "url": "Test/grid.js"
+        "url": "Test/datagrid.js"
       }
       ,
       {
