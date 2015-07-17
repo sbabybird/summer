@@ -4,7 +4,7 @@ Ext.define('itemmanager.store.items', {
 	autoLoad: true,
 	proxy: {
 		type: 'ajax',
-		url: 'api/cdp/item/all',
+		url: 'cdp/item/all',
 		reader: {
 			type: 'json',
 			root: 'data',

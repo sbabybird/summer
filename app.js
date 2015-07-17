@@ -30,7 +30,7 @@ app.use('/', routes);
 var server = require('./routes/server');
 server.config.resUrl = "http://192.168.1.181:8080/fresource/sso/loginformobile";
 server.loader.load();
-app.use('/api', server.router);
+app.use('/', server.router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
