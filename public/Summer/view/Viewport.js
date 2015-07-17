@@ -40,7 +40,7 @@ Ext.define('Summer.view.Viewport', {
       }
     });
   },
-  addTabs: function (id, name, url, icon) {
+  addTab: function (id, name, url, icon) {
     if (Ext.getCmp(id)) {
       this.mainCenter.setActiveTab(id);
       return;

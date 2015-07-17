@@ -12,6 +12,6 @@ Ext.onReady(function () {
 });
 
 //! addTabs，负责根据url将主工作面板添加到主工作区的tab容器里
-Summer.addTabs = function (id, name, url, icon) {
- return Summer.mainLayout.addTabs(id, name, url, icon);
+Summer.addTab = function (id, name, url, icon) {
+ return Summer.mainLayout.addTab(id, name, url, icon);
 };

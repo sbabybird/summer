@@ -1,3 +1,6 @@
+Summer.TAB_SETTINGS = 999;
+Summer.TAB_USERCENTER = 1000;
+
 Ext.define('Summer.view.LogoTitle', {
   extend: 'Ext.container.Container',
   xtype: 'logotitle',
@@ -43,17 +46,18 @@ Ext.define('Summer.view.UserInfo', {
   userMenu: [
     {
       cls: 'menu_list',
-      text: '个人主页',
+      text: '个人中心',
+      handler: function() {
+        Summer.addTab(Summer.TAB_USERCENTER, '个人中心', 'Summer/UserCenter.js', '');
+      }
     },
     {
       cls: 'menu_list',
       icon: '',
-      text: '修改密码',
-    },
-    {
-      cls: 'menu_list',
-      icon: '',
-      text: '账号管理',
+      text: '设置中心',
+      handler: function() {
+        Summer.addTab(Summer.TAB_SETTINGS, '设置中心', 'Summer/Settings.js', '');
+      }
     },
     {
       cls: 'menu_list',
