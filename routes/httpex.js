@@ -11,7 +11,11 @@ var httpex = function () {
                 if (callback instanceof Function)
                     callback(body);
             });
-        }).on("error", callbackErr);
+        }).on("error", function (e) {
+            console.log(e);
+            if (callbackErr instanceof Function)
+                callbackErr(e);
+        });
     }
 }
 module.exports = new httpex();

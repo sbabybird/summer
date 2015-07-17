@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
+var multer = require('multer'); 
 var routes = require('./routes/index');
 
 var app = express();
@@ -21,13 +21,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(multer({dest:"./", inMemory:true})); // for parsing multipart/form-data
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'plugin')));
 
 app.use('/', routes);
 
 var server = require('./routes/server');
-server.config.resUrl = "http://fr.hhwy.org/sso/loginformobile";
+server.config.resUrl = "http://192.168.1.181:8080/fresource/";
 server.loader.load();
 app.use('/api', server.router);
 

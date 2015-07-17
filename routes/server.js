@@ -50,7 +50,7 @@ var ser = function () {
         url = me.__urlAddParam(url, params);
         return url;
     }
-    // http的get
+    // http
     me.__http = require("./httpex");
     // 登录
     me.__login = function (req, res, user, password, appCode, frCode) {
@@ -103,7 +103,7 @@ var ser = function () {
                 item.text = v.text;
             item.icon = v.icon;
             item.url = v.url;
-            
+
             return false;
         });
         me.log(dat);
@@ -125,7 +125,7 @@ var ser = function () {
         return true;
     }
 
-    // 其它路由网址
+    // 其它路由网址get
     me.router.get("/*", function (req, res) {
         if (!me.__loginVerify(req, res))
             return;
@@ -138,6 +138,47 @@ var ser = function () {
             res.send(body);
             res.end();
         });
+    });
+    
+    // 其它路由网址post    
+    me.router.post("/*", function (req, res) {
+
+    console.log(req.files);
+    
+    res.end();
+        // var formidable = require('formidable');
+        // var form = new formidable.IncomingForm();   //创建上传表单
+        // form.encoding = 'utf-8';		//设置编辑
+        // form.uploadDir = './';	 //设置上传目录
+        // form.keepExtensions = true;	 //保留后缀
+        // form.maxFieldsSize = 2 * 1024 * 1024*1024;   //文件大小
+
+        // form.parse(req, function (err, fields, files) {
+        //     console.log(err);
+        //     res.end();
+        // });
+        // if (!me.__loginVerify(req, res))
+        //     return;
+        // for( var a in req ){
+        //     if ( req[a] instanceof Function )
+        //     continue;
+        //     console.log(a+req[a]);
+        // }
+        // req.on('data', function (dat) {
+        //     console.log("dat"+dat);
+        // });
+        // req.on('end', function () {
+        //     console.log("end");
+        //     res.end();
+        // });
+        // var url = req.session.user.appInfo.url + "/" + req.path + ";jsessionid=" + req.session.user.sessionid;
+        // url = me.__urlAddParam(url, req.query);
+        // me.log(url);
+
+        // me.__http.get(url, function (body) {
+        //     res.send(body);
+        //     res.end();
+        // });
     });
     return me;
 };
