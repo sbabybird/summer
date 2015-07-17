@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'plugin')));
 app.use('/', routes);
 
 var server = require('./routes/server');
-server.config.resUrl = "http://192.168.1.181:8080/fresource/";
+server.config.resUrl = "http://192.168.1.181:8080/fresource/sso/loginformobile";
 server.loader.load();
 app.use('/api', server.router);
 

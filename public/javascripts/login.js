@@ -14,25 +14,26 @@ Ext.onReady(function () {
                 xtype: 'textfield',
                 fieldLabel: '用户名',
                 name: 'loginName',
-                emptyText: 'user id'
+                emptyText: '0005'
             },
             {
                 xtype: 'textfield',
                 fieldLabel: '密码',
                 name: 'password',
-                emptyText: 'password',
+                emptyText: '123456',
                 inputType: 'password'
             },
             {
                 xtype: 'textfield',
                 fieldLabel: 'APPCODE',
-                name: 'appCode'
+                name: 'appCode',
+                emptyText: 'cdp'
             },
             {
                 xtype: 'textfield',
                 fieldLabel: 'FRCODE',
                 name: 'frCode',
-                emptyText: 'webERP'
+                emptyText: 'root'
             }
         ],
         login: function () {

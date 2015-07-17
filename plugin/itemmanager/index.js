@@ -1,0 +1,1 @@
+Ext.create('itemmanager.view.items')

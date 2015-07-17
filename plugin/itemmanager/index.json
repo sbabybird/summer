@@ -1,0 +1,8 @@
+{
+	"id": "cdp_item_task",
+	"type":"",
+	"frCode":"cdp_item_task",
+	"text": "项目管理",
+	"icon": "",
+	"url": "itemmanager/index.js"
+}
