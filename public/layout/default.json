@@ -28,7 +28,7 @@
         width: 200,
         split: true,
         collapsible: true,
-        loadurl: "api/nav",
+        loadurl: "nav",
       }
     }
   ],

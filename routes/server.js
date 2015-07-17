@@ -1,9 +1,7 @@
-var ser = function () {
-    var express = require("express");
-    var http = require("http");
+module.exports = function (router) {
     var fresource = require("./fresource");
     var me = this;
-    me.router = express.Router();
+    me.router = router;
 
     me.loader = require("./loader");
     
@@ -82,9 +80,9 @@ var ser = function () {
         });
     }
     // 登录对外接口post/get
-    me.router.post("/login", function (req, res) {
+    me.router.post("/userlogin", function (req, res) {
         me.__login(req, res, req.body.loginName, req.body.password, req.body.appCode, req.body.frCode);
-    }).get("/login", function (req, res) {
+    }).get("/userlogin", function (req, res) {
         me.__login(req, res, req.query.loginName, req.query.password, req.query.appCode, req.query.frCode);
     });
     
@@ -182,4 +180,3 @@ var ser = function () {
     });
     return me;
 };
-module.exports = new ser();
