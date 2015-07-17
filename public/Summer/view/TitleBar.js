@@ -60,10 +60,10 @@ Ext.define('Summer.view.UserInfo', {
       icon: '',
       text: '退出系统',
       handler: function () {
-        Ext.MessageBox.confirm('系统提示', '确定要退出吗？',
+        Ext.MessageBox.confirm('系统提示', '您确定要退出吗？',
           function (a) {
             if (a == 'yes') {
-              alert('退出成功');
+              window.location = '/logout';
             }
           });
       }

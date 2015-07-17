@@ -23,7 +23,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function (req, res) {
-    res.render('login', { title: 'Login' });
+  res.render('login', { title: 'Login' });
 });
+
+router.get('/logout', function(req, res) {
+  req.session.user = undefined;
+  res.redirect('/login');
+})
 
 module.exports = router;

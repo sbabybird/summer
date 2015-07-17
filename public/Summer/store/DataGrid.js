@@ -12,9 +12,8 @@ Ext.define('Summer.store.DataGrid', {
         },
 		pageParam: "pageIndex",
 		limitParam: "pageSize",
-		// startParam: "start",
 		sortParam: "sortField",
-		pageSize :10,
+		pageSize: 25,
 		directionParam: "sortOrder"
 	}
 })

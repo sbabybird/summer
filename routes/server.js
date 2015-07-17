@@ -80,106 +80,105 @@ var ser = function () {
                 res.end();
             });
         });
-    }
-    // 登录对外接口post/get
-    me.router.post("/login", function (req, res) {
-        me.__login(req, res, req.body.loginName, req.body.password, req.body.appCode, req.body.frCode);
-    }).get("/login", function (req, res) {
-        me.__login(req, res, req.query.loginName, req.query.password, req.query.appCode, req.query.frCode);
-    });
-    
-    // 取得导航配置
-    me.router.get("/nav", function (req, res) {
-        if (!me.__loginVerify(req, res) || req.session.fresource == undefined)
-            return;
-        me.log(req.session.fresource);
-        var nav = new fresource(req.session.fresource);
-        var dat = nav.toNav(function (item) {
-            var index = me.loader.findIndex(item.id);
-            if (-1 == index)
-                return true;
-            var v = me.loader.plugins[index].plugin;
-            if (v.text != undefined && v.text != "")
-                item.text = v.text;
-            item.icon = v.icon;
-            item.url = v.url;
-
-            return false;
+        // 登录对外接口post/get
+        me.router.post("/login", function (req, res) {
+            me.__login(req, res, req.body.loginName, req.body.password, req.body.appCode, req.body.frCode);
+        }).get("/login", function (req, res) {
+            me.__login(req, res, req.query.loginName, req.query.password, req.query.appCode, req.query.frCode);
         });
-        me.log(dat);
-        res.send(dat);
-        res.end();
-    });
+    
+        // 取得导航配置
+        me.router.get("/nav", function (req, res) {
+            if (!me.__loginVerify(req, res) || req.session.fresource == undefined)
+                return;
+            me.log(req.session.fresource);
+            var nav = new fresource(req.session.fresource);
+            var dat = nav.toNav(function (item) {
+                var index = me.loader.findIndex(item.id);
+                if (-1 == index)
+                    return true;
+                var v = me.loader.plugins[index].plugin;
+                if (v.text != undefined && v.text != "")
+                    item.text = v.text;
+                item.icon = v.icon;
+                item.url = v.url;
 
-    // 判断是否登录，如果没登录，则统一返回错误
-    me.__loginVerify = function (req, res) {
-        if (req.session == undefined || req.session.user == undefined ||
-            req.session.user.sessionid == undefined || req.session.user.sessionid == "") {
-            var err = {};
-            err.status = 401;
-            err.message = "请先登录！";
-            res.send(401, err);
+                return false;
+            });
+            me.log(dat);
+            res.send(dat);
             res.end();
-            return false;
+        });
+
+        // 判断是否登录，如果没登录，则统一返回错误
+        me.__loginVerify = function (req, res) {
+            if (req.session == undefined || req.session.user == undefined ||
+                req.session.user.sessionid == undefined || req.session.user.sessionid == "") {
+                var err = {};
+                err.status = 401;
+                err.message = "请先登录！";
+                res.send(401, err);
+                res.end();
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
 
-    // 其它路由网址get
-    me.router.get("/*", function (req, res) {
-        if (!me.__loginVerify(req, res))
-            return;
+        // 其它路由网址get
+        me.router.get("/*", function (req, res) {
+            if (!me.__loginVerify(req, res))
+                return;
 
-        var url = req.session.user.appInfo.url + "/" + req.path + ";jsessionid=" + req.session.user.sessionid;
-        url = me.__urlAddParam(url, req.query);
-        me.log(url);
+            var url = req.session.user.appInfo.url + "/" + req.path + ";jsessionid=" + req.session.user.sessionid;
+            url = me.__urlAddParam(url, req.query);
+            me.log(url);
 
-        me.__http.get(url, function (body) {
-            res.send(body);
-            res.end();
+            me.__http.get(url, function (body) {
+                res.send(body);
+                res.end();
+            });
         });
-    });
     
-    // 其它路由网址post    
-    me.router.post("/*", function (req, res) {
+        // 其它路由网址post    
+        me.router.post("/*", function (req, res) {
 
-    console.log(req.files);
-    
-    res.end();
-        // var formidable = require('formidable');
-        // var form = new formidable.IncomingForm();   //创建上传表单
-        // form.encoding = 'utf-8';		//设置编辑
-        // form.uploadDir = './';	 //设置上传目录
-        // form.keepExtensions = true;	 //保留后缀
-        // form.maxFieldsSize = 2 * 1024 * 1024*1024;   //文件大小
+            console.log(req.files);
 
-        // form.parse(req, function (err, fields, files) {
-        //     console.log(err);
-        //     res.end();
-        // });
-        // if (!me.__loginVerify(req, res))
-        //     return;
-        // for( var a in req ){
-        //     if ( req[a] instanceof Function )
-        //     continue;
-        //     console.log(a+req[a]);
-        // }
-        // req.on('data', function (dat) {
-        //     console.log("dat"+dat);
-        // });
-        // req.on('end', function () {
-        //     console.log("end");
-        //     res.end();
-        // });
-        // var url = req.session.user.appInfo.url + "/" + req.path + ";jsessionid=" + req.session.user.sessionid;
-        // url = me.__urlAddParam(url, req.query);
-        // me.log(url);
+            res.end();
+            // var formidable = require('formidable');
+            // var form = new formidable.IncomingForm();   //创建上传表单
+            // form.encoding = 'utf-8';		//设置编辑
+            // form.uploadDir = './';	 //设置上传目录
+            // form.keepExtensions = true;	 //保留后缀
+            // form.maxFieldsSize = 2 * 1024 * 1024*1024;   //文件大小
 
-        // me.__http.get(url, function (body) {
-        //     res.send(body);
-        //     res.end();
-        // });
-    });
-    return me;
-};
-module.exports = new ser();
+            // form.parse(req, function (err, fields, files) {
+            //     console.log(err);
+            //     res.end();
+            // });
+            // if (!me.__loginVerify(req, res))
+            //     return;
+            // for( var a in req ){
+            //     if ( req[a] instanceof Function )
+            //     continue;
+            //     console.log(a+req[a]);
+            // }
+            // req.on('data', function (dat) {
+            //     console.log("dat"+dat);
+            // });
+            // req.on('end', function () {
+            //     console.log("end");
+            //     res.end();
+            // });
+            // var url = req.session.user.appInfo.url + "/" + req.path + ";jsessionid=" + req.session.user.sessionid;
+            // url = me.__urlAddParam(url, req.query);
+            // me.log(url);
+
+            // me.__http.get(url, function (body) {
+            //     res.send(body);
+            //     res.end();
+            // });
+        });
+        return me;
+    };
+    module.exports = new ser();

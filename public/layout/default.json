@@ -9,7 +9,7 @@
       params: {
         logoUrl: "Test/logo.json",
         userUrl: "Test/user.json",
-      },
+      }
     },
     {
       stype: "Summer.view.MainCenter",
@@ -17,7 +17,7 @@
       region: "center",
       params: {
         loadurl: "Test/widgets.json",
-      },
+      }
     },
     {
       stype: "Summer.view.Navigation",
@@ -29,7 +29,7 @@
         split: true,
         collapsible: true,
         loadurl: "api/nav",
-      },
+      }
     }
   ],
 }
