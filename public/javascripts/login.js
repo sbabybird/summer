@@ -8,7 +8,7 @@ Ext.onReady(function () {
         layout: 'form',
         region: 'center',
         defaultType: 'textfield',
-        url: '/api/login',
+        url: '/login',
         items: [
             {
                 xtype: 'textfield',
