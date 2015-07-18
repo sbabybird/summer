@@ -1,7 +1,24 @@
 Ext.define('itemmanager.view.items', {
 	extend: 'Ext.grid.Panel',
-	title: '项目信息',
 	store: Ext.create('itemmanager.store.items'),
+	initComponent: function () {
+		var me = this;
+		this.initPagingBar(me);
+		this.callParent();
+	},
+	tbar: [
+		{ xtype: "textfield", emptyText: "项目名称/简称/委托单位/项目类型" },
+		{ xtype: "button", text: "搜索" }, "->",
+		{ xtype: "button", text: "新增项目" }
+	],
+	initPagingBar: function (me) {
+		me.bbar = Ext.create('Ext.PagingToolbar', {
+			store: me.store,
+			displayInfo: true,
+			displayMsg: '显示第{0} - {1}条记录 / 共{2}记录',
+			emptyMsg: "没有记录",
+		});
+	},
 	columns: [
 		{
 			xtype: "rownumberer",

@@ -1,8 +1,8 @@
 {
-	"id": "cdp_item_task",
+	"id": "cdp_item_tz",
 	"type":"",
-	"frCode":"cdp_item_task",
-	"text": "项目管理",
+	"frCode":"cdp_item_tz",
+	"text": "项目台账",
 	"icon": "",
 	"url": "itemmanager/index.js"
 }

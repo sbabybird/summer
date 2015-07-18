@@ -23,7 +23,6 @@ Ext.define('itemmanager.model.items', {
 			dataIndex: 'shrot',
 			align: 'center'
 		},
-
 		{
 			header: '项目类型',
 			dataIndex: 'typeNameCN',

@@ -2,7 +2,6 @@ module.exports = function (router) {
     var fresource = require("./fresource");
     var me = this;
     me.router = router;
-
     me.loader = require("./loader");
     
     // 配置
@@ -12,13 +11,62 @@ module.exports = function (router) {
         // 是否为调试模式
         debug: true
     };
+    
+    // 登录对外接口post/get
+    me.router.post("/userlogin", function (req, res) {
+        me.__login(req, res, req.body.loginName, req.body.password, req.body.appCode, req.body.frCode);
+    }).get("/userlogin", function (req, res) {
+        me.__login(req, res, req.query.loginName, req.query.password, req.query.appCode, req.query.frCode);
+    });
+    
+    // 取得导航配置
+    me.router.get("/nav", function (req, res){me.__getNav(req,res);});
+    // 其它路由网址get
+    me.router.get("/*", function (req, res) {
+        me.router.__accessA("get", req, res);
+    });
+    // 其它路由网址delete
+    me.router.delete("/*", function (req, res) {
+        me.router.__accessA("delete", req, res);
+    });
+    // 其它路由网址delete
+    me.router.post("/*", function (req, res) {
+        me.router.__accessB("post", req, res);
+    });
+    // 其它路由网址delete
+    me.router.put("/*", function (req, res) {
+        me.router.__accessB("put", req, res);
+    });
 
+    // 打印日志
     me.log = function (msg) {
         if (me.config.debug) {
             console.log(msg);
         }
     }
     
+    // 取得导航信息
+    me.__getNav =  function (req, res) {
+        if (!me.__loginVerify(req, res) || req.session.fresource == undefined)
+            return;
+        me.log(req.session.fresource);
+        var nav = new fresource(req.session.fresource);
+        var dat = nav.toNav(function (item) {
+            var index = me.loader.findIndex(item.id);
+            if (-1 == index)
+                return true;
+            var v = me.loader.plugins[index].plugin;
+            if (v.text != undefined && v.text != "")
+                item.text = v.text;
+            item.icon = v.icon;
+            item.url = v.url;
+
+            return false;
+        });
+        me.log(dat);
+        res.send(dat);
+        res.end();
+    }
     // 参数合并到网址上
     me.__urlAddParam = function (url, params) {
         if (params == undefined || params == null)
@@ -58,10 +106,16 @@ module.exports = function (router) {
         
         // 登录到java后端
         me.__http.get(url, function (body) {
-            req.session.user = JSON.parse(body);
-            var u = req.session.user.appInfo.url;
-            if ( u[u.length-1] == "/" ){
-                req.session.user.appInfo.url.length = u.length-1;
+            var ret = JSON.parse(body);
+            if (ret.state != undefined && ret.state == "error") {
+                res.send(500, ret);
+                res.end();
+                return;
+            }
+            req.session.user = ret;
+            var u = ret.appInfo.url;
+            if (u[u.length - 1] == "/") {
+                req.session.user.appInfo.url.length = u.length - 1;
             }
             console.log(req.session.user.appInfo.url);
             // 获取统一资源的权限
@@ -84,35 +138,6 @@ module.exports = function (router) {
             });
         });
     }
-    // 登录对外接口post/get
-    me.router.post("/userlogin", function (req, res) {
-        me.__login(req, res, req.body.loginName, req.body.password, req.body.appCode, req.body.frCode);
-    }).get("/userlogin", function (req, res) {
-        me.__login(req, res, req.query.loginName, req.query.password, req.query.appCode, req.query.frCode);
-    });
-    
-    // 取得导航配置
-    me.router.get("/nav", function (req, res) {
-        if (!me.__loginVerify(req, res) || req.session.fresource == undefined)
-            return;
-        me.log(req.session.fresource);
-        var nav = new fresource(req.session.fresource);
-        var dat = nav.toNav(function (item) {
-            var index = me.loader.findIndex(item.id);
-            if (-1 == index)
-                return true;
-            var v = me.loader.plugins[index].plugin;
-            if (v.text != undefined && v.text != "")
-                item.text = v.text;
-            item.icon = v.icon;
-            item.url = v.url;
-
-            return false;
-        });
-        me.log(dat);
-        res.send(dat);
-        res.end();
-    });
 
     // 判断是否登录，如果没登录，则统一返回错误
     me.__loginVerify = function (req, res) {
@@ -121,15 +146,15 @@ module.exports = function (router) {
             var err = {};
             err.status = 401;
             err.message = "请先登录！";
-            res.send(401, err);
+            res.status(401).send(err);
             res.end();
             return false;
         }
         return true;
     }
 
-    // 其它路由网址get
-    me.router.get("/*", function (req, res) {
+    // get/delete
+    me.router.__accessA = function (name, req, res) {
         if (!me.__loginVerify(req, res))
             return;
 
@@ -137,51 +162,34 @@ module.exports = function (router) {
         url = me.__urlAddParam(url, req.query);
         me.log(url);
 
-        me.__http.get(url, function (body) {
+        me.__http[name](url, function (body) {
             res.send(body);
             res.end();
+        }, function (err) {
+            res.status(500).send(err);
+            res.end();
         });
-    });
-    
-    // 其它路由网址post    
-    me.router.post("/*", function (req, res) {
+    }
+    // 其它路由网址post   
+    me.router.__accessB = function (name, req, res) {
+        // 验证是否登录
+        if (!me.__loginVerify(req, res))
+            return;
 
-        console.log(req.files);
-
-        res.end();
-        // var formidable = require('formidable');
-        // var form = new formidable.IncomingForm();   //创建上传表单
-        // form.encoding = 'utf-8';		//设置编辑
-        // form.uploadDir = './';	 //设置上传目录
-        // form.keepExtensions = true;	 //保留后缀
-        // form.maxFieldsSize = 2 * 1024 * 1024*1024;   //文件大小
-
-        // form.parse(req, function (err, fields, files) {
-        //     console.log(err);
-        //     res.end();
-        // });
-        // if (!me.__loginVerify(req, res))
-        //     return;
-        // for( var a in req ){
-        //     if ( req[a] instanceof Function )
-        //     continue;
-        //     console.log(a+req[a]);
-        // }
-        // req.on('data', function (dat) {
-        //     console.log("dat"+dat);
-        // });
-        // req.on('end', function () {
-        //     console.log("end");
-        //     res.end();
-        // });
-        // var url = req.session.user.appInfo.url + "/" + req.path + ";jsessionid=" + req.session.user.sessionid;
-        // url = me.__urlAddParam(url, req.query);
-        // me.log(url);
-
-        // me.__http.get(url, function (body) {
-        //     res.send(body);
-        //     res.end();
-        // });
-    });
+        // 合成网址
+        var url = req.session.user.appInfo.url + req.path + ";jsessionid=" + req.session.user.sessionid;
+        console.log(url);
+        console.log(req.body);
+        // 发送数据到服务器
+        me.__http[name](url, req.body, function (body) {
+            console.log(body);
+            res.send(body);
+            res.end();
+        }, function (err) {
+            console.log(err);
+            res.status(500).send(err);
+            res.end();
+        });
+    }
     return me;
 };

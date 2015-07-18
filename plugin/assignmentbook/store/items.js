@@ -1,14 +1,12 @@
-Ext.define('itemmanager.store.items', {
+Ext.define('assignmentbook.store.items', {
 	extend: 'Ext.data.Store',
-	model: 'itemmanager.model.items',
+	model: 'assignmentbook.model.items',
 	autoLoad: true,
 	proxy: {
 		type: 'ajax',
-		url: 'cdp/item/all',
+		url: 'cdp/taskBook/treeList',
 		reader: {
-			type: 'json',
-			root: 'data',
-			totalProperty: 'total'
+			type: 'array'
         },
 		sortParam: "sortField",
 		pageSize: 10,
