@@ -29,11 +29,11 @@ module.exports = function (router) {
     me.router.delete("/*", function (req, res) {
         me.router.__accessA("delete", req, res);
     });
-    // 其它路由网址delete
+    // 其它路由网址post
     me.router.post("/*", function (req, res) {
         me.router.__accessB("post", req, res);
     });
-    // 其它路由网址delete
+    // 其它路由网址put
     me.router.put("/*", function (req, res) {
         me.router.__accessB("put", req, res);
     });
