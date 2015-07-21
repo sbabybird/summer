@@ -25,8 +25,7 @@
       region: "west",
       params: {
         title: "功能导航",
-        width: 200,
-        split: true,
+        width: 240,
         collapsible: true,
         loadurl: "nav",
       }

@@ -45,7 +45,7 @@ Ext.define('Summer.view.Viewport', {
       this.mainCenter.setActiveTab(id);
       return;
     }
-    var tab = Ext.create('Ext.panel.Panel', {
+    var tab = Ext.create('Ext.container.Container', {
       id: id,
       title: name,
       icon: icon,

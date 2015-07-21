@@ -1,30 +1,29 @@
 Ext.define('Summer.view.SettingCenter', {
-	extend: 'Ext.panel.Panel',
-	bodyBorder: false,
+	extend: 'Ext.dashboard.Dashboard',
+	layout: 'auto',
+	height: 699,
 	scrollable: true,
-	autoScroll: true,
 	initComponent: function () {
 		var me = this;
-		var syssets = [];
-		Ext.Ajax.request({
-			async: false,
-			url: '/mainFrame/sysset',
-			success: function (response) {
-				var items = Ext.JSON.decode(response.responseText);
-				Ext.each(items, function (sysSet) {
-					var item = {
-						xtype: 's-widget',
-						collapsible: true,
-						title: sysSet.name,
-						columnWidth: 1,
-						loadurl: sysSet.url,
-						icon: sysSet.icon
-					};
-					syssets.push(item);
-				});
-			}
+		me.callParent();
+		this.getLoader().load({
+			url: this.loadurl
 		});
-		me.items = syssets;
-        me.callParent();
-   	}
+   	},
+	loader: {
+		renderer: function (loader, res, act) {
+			var widgets = Ext.JSON.decode(res.responseText);
+			var me = loader.getTarget();
+			Ext.each(widgets, function (widget) {
+				me.add({
+					xtype: 's-widget',
+					title: widget.name,
+					icon: widget.icon,
+					loadurl: widget.url,
+					columnWidth: 1,
+				});
+			});
+			return true;
+		}
+	}
 })

@@ -4,6 +4,9 @@ Ext.define('Summer.view.Widget', {
   loader: {
     renderer: 'component',
   },
+  autoScroll: true,
+  layout: 'fit',
+  border:0,
   initComponent: function () {
     this.callParent();
     this.getLoader().load({
@@ -33,7 +36,6 @@ Ext.define('Summer.view.MainCenter', {
       Ext.each(widgets, function (widget) {
         me.dashboard.add({
           xtype: 's-widget',
-          collapsible: true,
           title: widget.name,
           icon: widget.icon,
           columnWidth: widget.columnWidth,

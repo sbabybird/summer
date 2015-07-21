@@ -1,1 +1,3 @@
-Ext.create('Summer.view.SettingCenter')
+Ext.create('Ext.dashboard.Dashboard', {
+	loadurl: '/mainFrame/sysset'
+})
