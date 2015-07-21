@@ -1,5 +1,5 @@
 Ext.define('Summer.view.SettingCenter', {
-	extend: 'Ext.dashboard.Dashboard',
+	extend: 'Ext.container.Container',
 	layout: 'auto',
 	height: 699,
 	scrollable: true,
