@@ -5,33 +5,5 @@
     "icon": "",
     "url": "Test/datagrid.js",
     "columnWidth": 1,
-  },
-  {
-    "type": "home",
-    "name": "通知",
-    "icon": "",
-    "url": "Test/datagrid.js",
-    "columnWidth": 1,
-  },
-  {
-    "type": "home",
-    "name": "通知",
-    "icon": "",
-    "url": "Test/datagrid.js",
-    "columnWidth": 1,
-  },
-  {
-    "type": "home",
-    "name": "通知",
-    "icon": "",
-    "url": "Test/datagrid.js",
-    "columnWidth": 1,
-  },
-  {
-    "type": "home",
-    "name": "通知",
-    "icon": "",
-    "url": "Test/datagrid.js",
-    "columnWidth": 1,
   }
 ]
