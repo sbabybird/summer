@@ -1,3 +1,5 @@
+/* global Ext */
+/* global Summer */
 Ext.Loader.setConfig({enabled: true});
 
 Ext.BLANK_IMAGE_URL = 'images/white.gif'; //定义空白图片（防止没有联网，图标出不来）

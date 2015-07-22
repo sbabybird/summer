@@ -3,6 +3,7 @@ Ext.define('Summer.view.DataGrid', {
   initComponent: function () {
     var me = this;
     this.initStore(me);
+    this.initToolbar(me);
     this.initPagingBar(me);
     this.callParent();
   },
@@ -22,6 +23,9 @@ Ext.define('Summer.view.DataGrid', {
         simpleSortMode: true
       },
     });
+  },
+  initToolbar: function(me) {
+    
   },
   initPagingBar: function (me) {
     me.bbar = Ext.create('Ext.PagingToolbar', {

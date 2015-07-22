@@ -4,20 +4,6 @@
     "name": "通知",
     "icon": "",
     "url": "Test/datagrid.js",
-    "columnWidth": 0.8,
-  },
-  {
-    "type": "home",
-    "name": "通知",
-    "icon": "",
-    "url": "Test/datagrid.js",
-    "columnWidth": 0.2,
-  },
-  {
-    "type": "home",
-    "name": "通知",
-    "icon": "",
-    "url": "Test/datagrid.js",
     "columnWidth": 1,
   }
 ]
