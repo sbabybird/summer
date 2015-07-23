@@ -27,7 +27,7 @@ Ext.onReady(function () {
                 xtype: 'textfield',
                 fieldLabel: 'APPCODE',
                 name: 'appCode',
-                emptyText: 'cdp'
+                emptyText: 'cdptrunk'
             },
             {
                 xtype: 'textfield',

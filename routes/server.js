@@ -20,7 +20,7 @@ module.exports = function (router) {
     });
     
     // 取得导航配置
-    me.router.get("/nav", function (req, res){me.__getNav(req,res);});
+    me.router.get("/nav", function (req, res) { me.__getNav(req, res); });
     // 其它路由网址get
     me.router.get("/*", function (req, res) {
         me.router.__accessA("get", req, res);
@@ -31,6 +31,26 @@ module.exports = function (router) {
     });
     // 其它路由网址post
     me.router.post("/*", function (req, res) {
+        if (req.headers["content-type"].indexOf("multipart") !== -1) {
+            // 验证是否登录
+            if (!me.__loginVerify(req, res))
+                return;
+            // 合成网址
+            //var url = "http://192.168.1.181:8080/fwebruntime/plugin/upload;jsessionid=DD96DB369D32AB1E7AC9423EB73A5DF9";
+            var url = req.session.user.appInfo.url + req.path + ";jsessionid=" + req.session.user.sessionid;
+            url = me.__urlAddParam(url, req.query);
+            console.log(url);
+            me.__http.transmitFile(url, req, function (body) {
+                console.log(body);
+                res.send(body);
+                res.end();
+            }, function (err) {
+                console.log(err);
+                res.status(500).send(err);
+                res.end();
+            });
+            return;
+        }
         me.router.__accessB("post", req, res);
     });
     // 其它路由网址put
@@ -46,7 +66,7 @@ module.exports = function (router) {
     }
     
     // 取得导航信息
-    me.__getNav =  function (req, res) {
+    me.__getNav = function (req, res) {
         if (!me.__loginVerify(req, res) || req.session.fresource == undefined)
             return;
         me.log(req.session.fresource);
